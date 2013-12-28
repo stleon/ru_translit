@@ -40,23 +40,11 @@ def do_translit(word):
 		u'я':'ya',
 		' ':'-',
 	}
-	new_word = ""
-	for symbol in word.lower().strip():
-		if symbol in my_dict:
-			new_word = new_word + my_dict[symbol]
-		else:
-			new_word = new_word + symbol
-	return new_word
-
+	return my_dict[word] if word.lower() in my_dict else word
 
 def main():
-	try:
-		word = ""
-		for i in sys.argv[1:]:
-			word = word + i + " "
-		print do_translit(word.decode('utf-8'))
-	except IndexError:
-		print 'usage: add some words'
+	word = ' '.join(sys.argv[1:]).decode('utf-8')
+	print ''.join(map(do_translit, word)) if word else 'Usage: add some words'
 
 if __name__=='__main__':
 	main()
